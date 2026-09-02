@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NOVA - Checkout</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- NOVA CSS -->
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================== -->
+<!-- NAVBAR -->
+<!-- ========================================== -->
+
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand fw-bold"
+            href="index.html"
+        >
+            NOVA
+        </a>
+
+
+        <div class="ms-auto">
+
+            <a
+                href="cart.html"
+                class="text-decoration-none text-dark"
+            >
+                ← Back to Cart
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ========================================== -->
+<!-- CHECKOUT -->
+<!-- ========================================== -->
+
+<main class="container py-5">
+
+    <div class="row g-4">
+
+
+        <!-- ====================================== -->
+        <!-- LEFT SIDE -->
+        <!-- ====================================== -->
+
+        <div class="col-lg-7">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+
+                    <h2 class="fw-bold mb-1">
+                        Checkout
+                    </h2>
+
+                    <p class="text-muted mb-4">
+                        Complete your delivery and payment details.
+                    </p>
+
+
+                    <!-- ================================= -->
+                    <!-- SHIPPING INFORMATION -->
+                    <!-- ================================= -->
+
+                    <h5 class="fw-bold mb-3">
+                        Delivery Information
+                    </h5>
+
+
+                    <form id="shippingForm" novalidate>
+
+
+                        <!-- NAME -->
+
+                        <div class="row g-3 mb-3">
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="firstName"
+                                    class="form-label"
+                                >
+                                    First Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="first_name"
+                                    class="form-control"
+                                    placeholder="Lokesh"
+                                    autocomplete="given-name"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="lastName"
+                                    class="form-label"
+                                >
+                                    Last Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    name="last_name"
+                                    class="form-control"
+                                    placeholder="Sonar"
+                                    autocomplete="family-name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- EMAIL + PHONE -->
+
+                        <div class="row g-3 mb-3">
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="email"
+                                    class="form-label"
+                                >
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-control"
+                                    placeholder="you@example.com"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="phone"
+                                    class="form-label"
+                                >
+                                    Phone
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    class="form-control"
+                                    placeholder="9876543210"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ADDRESS -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="address"
+                                class="form-label"
+                            >
+                                Address
+                            </label>
+
+                            <textarea
+                                id="address"
+                                name="address"
+                                class="form-control"
+                                rows="3"
+                                placeholder="House No., Street, Area"
+                                autocomplete="street-address"
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+
+                        <!-- CITY + PIN -->
+
+                        <div class="row g-3 mb-4">
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="city"
+                                    class="form-label"
+                                >
+                                    City
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="city"
+                                    name="city"
+                                    class="form-control"
+                                    placeholder="Pune"
+                                    autocomplete="address-level2"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="pinCode"
+                                    class="form-label"
+                                >
+                                    PIN Code
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="pinCode"
+                                    name="pin_code"
+                                    class="form-control"
+                                    placeholder="411001"
+                                    inputmode="numeric"
+                                    maxlength="6"
+                                    pattern="[0-9]{6}"
+                                    autocomplete="postal-code"
+                                    required
+                                >
+
+                                <div class="form-text">
+                                    Enter your 6-digit PIN code.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+
+                        <!-- ================================= -->
+                        <!-- PAYMENT METHOD -->
+                        <!-- ================================= -->
+
+                        <h5 class="fw-bold mb-3">
+                            Payment Method
+                        </h5>
+
+                        <p class="text-muted small">
+                            This is a demo payment flow. No real payment will be processed.
+                        </p>
+
+
+
+                        <div class="payment-methods">
+
+
+                            <!-- CARD -->
+
+                            <label
+                                class="payment-option d-flex align-items-center gap-3 border rounded p-3 mb-2"
+                                style="cursor:pointer;"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="payment_method"
+                                    value="Credit / Debit Card"
+                                    checked
+                                >
+
+                                <div>
+
+                                    <div class="fw-semibold">
+                                        Credit / Debit Card
+                                    </div>
+
+                                    <small class="text-muted">
+                                        Visa, Mastercard, RuPay
+                                    </small>
+
+                                </div>
+
+                            </label>
+
+
+
+                            <!-- UPI -->
+
+                            <label
+                                class="payment-option d-flex align-items-center gap-3 border rounded p-3 mb-2"
+                                style="cursor:pointer;"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="payment_method"
+                                    value="UPI"
+                                >
+
+                                <div>
+
+                                    <div class="fw-semibold">
+                                        UPI
+                                    </div>
+
+                                    <small class="text-muted">
+                                        Google Pay, PhonePe, Paytm
+                                    </small>
+
+                                </div>
+
+                            </label>
+
+
+
+                            <!-- NET BANKING -->
+
+                            <label
+                                class="payment-option d-flex align-items-center gap-3 border rounded p-3 mb-2"
+                                style="cursor:pointer;"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="payment_method"
+                                    value="Net Banking"
+                                >
+
+                                <div>
+
+                                    <div class="fw-semibold">
+                                        Net Banking
+                                    </div>
+
+                                    <small class="text-muted">
+                                        All major banks
+                                    </small>
+
+                                </div>
+
+                            </label>
+
+
+
+                            <!-- WALLET -->
+
+                            <label
+                                class="payment-option d-flex align-items-center gap-3 border rounded p-3"
+                                style="cursor:pointer;"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="payment_method"
+                                    value="Wallet"
+                                >
+
+                                <div>
+
+                                    <div class="fw-semibold">
+                                        Wallet
+                                    </div>
+
+                                    <small class="text-muted">
+                                        Digital wallets
+                                    </small>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ====================================== -->
+        <!-- RIGHT SIDE -->
+        <!-- ====================================== -->
+
+        <div class="col-lg-5">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+
+                    <h5 class="fw-bold mb-4">
+                        Your Order
+                    </h5>
+
+
+                    <!-- CART ITEMS -->
+
+                    <div id="checkoutItems">
+
+                        <div class="text-center py-4">
+
+                            <div
+                                class="spinner-border spinner-border-sm"
+                                role="status"
+                            ></div>
+
+                            <div class="text-muted mt-2">
+                                Loading your order...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <!-- ================================= -->
+                    <!-- ORDER SUMMARY -->
+                    <!-- ================================= -->
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span class="text-muted">
+                            Subtotal
+                        </span>
+
+                        <span
+                            id="checkoutSubtotal"
+                            class="fw-semibold"
+                        >
+                            ₹0
+                        </span>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span class="text-muted">
+                            Shipping
+                        </span>
+
+                        <span
+                            id="checkoutShipping"
+                            class="fw-semibold"
+                        >
+                            FREE
+                        </span>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span class="text-muted">
+                            Tax
+                        </span>
+
+                        <span
+                            id="checkoutTax"
+                            class="fw-semibold"
+                        >
+                            ₹0
+                        </span>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <span class="fw-bold fs-5">
+                            Total
+                        </span>
+
+                        <span
+                            id="checkoutTotal"
+                            class="fw-bold fs-5"
+                        >
+                            ₹0
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ================================= -->
+                    <!-- PAY BUTTON -->
+                    <!-- ================================= -->
+
+                    <button
+                        type="button"
+                        id="payNowBtn"
+                        class="btn btn-dark w-100 py-3 fw-semibold"
+                    >
+                        Pay Now
+                    </button>
+
+
+                    <p class="text-muted text-center small mt-3 mb-0">
+
+                        🔒 Secure demo checkout
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- ========================================== -->
+<!-- FOOTER -->
+<!-- ========================================== -->
+
+<footer class="border-top py-4 mt-5">
+
+    <div class="container text-center">
+
+        <small class="text-muted">
+            © 2026 NOVA. All rights reserved.
+        </small>
+
+    </div>
+
+</footer>
+
+
+
+<!-- CHECKOUT JS -->
+
+<script src="js/checkout.js"></script>
+
+
+</body>
+
+</html>

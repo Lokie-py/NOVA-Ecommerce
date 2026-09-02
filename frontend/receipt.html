@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NOVA - Order Confirmation</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- NOVA CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <style>
+
+        body {
+            background: #f8f9fa;
+        }
+
+
+        .receipt-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+
+        .receipt-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #198754;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            margin: 0 auto 20px;
+        }
+
+
+        .receipt-header {
+            text-align: center;
+            padding: 45px 30px 30px;
+        }
+
+
+        .receipt-section {
+            padding: 25px 30px;
+        }
+
+
+        .receipt-item {
+            padding: 15px 0;
+        }
+
+
+        .info-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+
+        .order-id {
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            nav,
+            footer,
+            .no-print {
+                display: none !important;
+            }
+
+            .receipt-card {
+                box-shadow: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================== -->
+<!-- NAVBAR -->
+<!-- ========================================== -->
+
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand fw-bold"
+            href="index.html"
+        >
+            NOVA
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ========================================== -->
+<!-- MAIN -->
+<!-- ========================================== -->
+
+<main class="container py-5">
+
+
+    <div class="receipt-wrapper">
+
+
+        <!-- ====================================== -->
+        <!-- LOADING -->
+        <!-- ====================================== -->
+
+        <div
+            id="receiptLoading"
+            class="text-center py-5"
+        >
+
+            <div
+                class="spinner-border text-dark"
+                role="status"
+            ></div>
+
+            <div class="text-muted mt-3">
+                Preparing your receipt...
+            </div>
+
+        </div>
+
+
+
+        <!-- ====================================== -->
+        <!-- ERROR -->
+        <!-- ====================================== -->
+
+        <div
+            id="receiptError"
+            class="card border-0 shadow-sm text-center py-5"
+            style="display:none;"
+        >
+
+            <div class="card-body">
+
+                <div
+                    class="mb-3"
+                    style="font-size:45px;"
+                >
+                    ⚠️
+                </div>
+
+                <h3 class="fw-bold">
+                    Unable to load receipt
+                </h3>
+
+                <p class="text-muted">
+                    We couldn't find your order details.
+                </p>
+
+                <a
+                    href="index.html"
+                    class="btn btn-dark"
+                >
+                    Back to Home
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ====================================== -->
+        <!-- RECEIPT CONTENT -->
+        <!-- ====================================== -->
+
+        <div
+            id="receiptContent"
+            class="receipt-card shadow-sm"
+            style="display:none;"
+        >
+
+
+            <!-- ================================= -->
+            <!-- SUCCESS HEADER -->
+            <!-- ================================= -->
+
+            <div class="receipt-header">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+
+                <h1 class="fw-bold mb-2">
+                    Order Confirmed!
+                </h1>
+
+
+                <p class="text-muted mb-4">
+                    Thank you for shopping with NOVA.
+                </p>
+
+
+                <div class="small text-muted">
+                    Order ID
+                </div>
+
+
+                <div
+                    id="receiptOrderId"
+                    class="order-id fs-5"
+                >
+                    NOVA-ORDER
+                </div>
+
+            </div>
+
+
+
+            <div class="border-top"></div>
+
+
+
+            <!-- ================================= -->
+            <!-- ORDER DETAILS -->
+            <!-- ================================= -->
+
+            <div class="receipt-section">
+
+                <div class="row g-3">
+
+
+                    <div class="col-md-4">
+
+                        <div class="info-box">
+
+                            <small class="text-muted d-block">
+                                Order Date
+                            </small>
+
+                            <strong id="receiptDate">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-4">
+
+                        <div class="info-box">
+
+                            <small class="text-muted d-block">
+                                Order Time
+                            </small>
+
+                            <strong id="receiptTime">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-4">
+
+                        <div class="info-box">
+
+                            <small class="text-muted d-block">
+                                Payment Method
+                            </small>
+
+                            <strong id="receiptPayment">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <div class="border-top"></div>
+
+
+
+            <!-- ================================= -->
+            <!-- DELIVERY INFORMATION -->
+            <!-- ================================= -->
+
+            <div class="receipt-section">
+
+                <h5 class="fw-bold mb-3">
+                    Delivery Information
+                </h5>
+
+
+                <div class="info-box">
+
+                    <div
+                        id="receiptCustomerName"
+                        class="fw-semibold mb-1"
+                    >
+                        —
+                    </div>
+
+
+                    <div
+                        id="receiptCustomerEmail"
+                        class="text-muted"
+                    >
+                        —
+                    </div>
+
+
+                    <div
+                        id="receiptCustomerPhone"
+                        class="text-muted"
+                    >
+                        —
+                    </div>
+
+
+                    <div
+                        id="receiptCustomerAddress"
+                        class="text-muted mt-2"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="border-top"></div>
+
+
+
+            <!-- ================================= -->
+            <!-- ORDER ITEMS -->
+            <!-- ================================= -->
+
+            <div class="receipt-section">
+
+                <h5 class="fw-bold mb-3">
+                    Order Items
+                </h5>
+
+
+                <div id="receiptItems">
+
+                    <!-- Items inserted by receipt.js -->
+
+                </div>
+
+            </div>
+
+
+
+            <div class="border-top"></div>
+
+
+
+            <!-- ================================= -->
+            <!-- ORDER SUMMARY -->
+            <!-- ================================= -->
+
+            <div class="receipt-section">
+
+                <h5 class="fw-bold mb-4">
+                    Order Summary
+                </h5>
+
+
+                <div class="d-flex justify-content-between mb-2">
+
+                    <span class="text-muted">
+                        Subtotal
+                    </span>
+
+                    <span
+                        id="receiptSubtotal"
+                        class="fw-semibold"
+                    >
+                        ₹0
+                    </span>
+
+                </div>
+
+
+                <div class="d-flex justify-content-between mb-2">
+
+                    <span class="text-muted">
+                        Shipping
+                    </span>
+
+                    <span
+                        id="receiptShipping"
+                        class="fw-semibold"
+                    >
+                        FREE
+                    </span>
+
+                </div>
+
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span class="text-muted">
+                        Tax
+                    </span>
+
+                    <span
+                        id="receiptTax"
+                        class="fw-semibold"
+                    >
+                        ₹0
+                    </span>
+
+                </div>
+
+
+                <hr>
+
+
+                <div
+                    class="
+                        d-flex
+                        justify-content-between
+                        align-items-center
+                    "
+                >
+
+                    <span class="fw-bold fs-5">
+                        Total
+                    </span>
+
+                    <span
+                        id="receiptTotal"
+                        class="fw-bold fs-4"
+                    >
+                        ₹0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="border-top"></div>
+
+
+
+            <!-- ================================= -->
+            <!-- THANK YOU -->
+            <!-- ================================= -->
+
+            <div class="receipt-section text-center">
+
+                <p class="text-muted mb-0">
+                    Your order has been successfully placed.
+                </p>
+
+                <p class="text-muted small">
+                    This is a demonstration checkout.
+                    No real payment has been processed.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- BUTTONS -->
+            <!-- ================================= -->
+
+            <div class="receipt-section no-print">
+
+                <div class="row g-2">
+
+
+                    <div class="col-md-6">
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-dark w-100"
+                            onclick="printReceipt()"
+                        >
+                            🖨 Print Receipt
+                        </button>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <a
+                            href="index.html"
+                            class="btn btn-dark w-100"
+                        >
+                            Continue Shopping
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- ========================================== -->
+<!-- FOOTER -->
+<!-- ========================================== -->
+
+<footer class="border-top py-4 mt-4">
+
+    <div class="container text-center">
+
+        <small class="text-muted">
+            © 2026 NOVA. All rights reserved.
+        </small>
+
+    </div>
+
+</footer>
+
+
+
+<!-- RECEIPT JS -->
+
+<script src="js/receipt.js"></script>
+
+
+</body>
+
+</html>
