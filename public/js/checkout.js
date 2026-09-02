@@ -2,7 +2,7 @@
 // NOVA - CHECKOUT
 // ==========================================
 
-const API_URL = "/api";
+const API_URL = "";
 
 console.log("CHECKOUT JS LOADED");
 
