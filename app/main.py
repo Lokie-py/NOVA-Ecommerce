@@ -3,8 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
-from .database import engine, Base, get_db
+from .database import engine, Base, get_db, SessionLocal
 from . import models
+from .seed import seed_products
 
 app = FastAPI(title="NOVA E-Commerce API")
 
@@ -27,6 +28,14 @@ app.add_middleware(
 # =====================================================
 
 Base.metadata.create_all(bind=engine)
+
+# Seed products automatically
+db = SessionLocal()
+
+try:
+    seed_products(db)
+finally:
+    db.close()
 
 
 # =====================================================
@@ -56,9 +65,7 @@ def health_check():
 
 @app.get("/api/products")
 def get_products(db: Session = Depends(get_db)):
-
     products = db.query(models.Product).all()
-
     return products
 
 
@@ -68,7 +75,6 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
     product = db.query(models.Product).filter(models.Product.id == product_id).first()
 
     if not product:
-
         raise HTTPException(status_code=404, detail="Product not found")
 
     return product
@@ -98,7 +104,6 @@ def add_to_cart(item: CartItemRequest, db: Session = Depends(get_db)):
     )
 
     if not product:
-
         raise HTTPException(status_code=404, detail="Product not found")
 
     # Check if product is already in cart
@@ -109,11 +114,9 @@ def add_to_cart(item: CartItemRequest, db: Session = Depends(get_db)):
     )
 
     if cart_item:
-
         cart_item.quantity += item.quantity
 
     else:
-
         cart_item = models.CartItem(product_id=item.product_id, quantity=item.quantity)
 
         db.add(cart_item)
@@ -150,7 +153,6 @@ def get_cart(db: Session = Depends(get_db)):
         )
 
         if product:
-
             cart.append(
                 {
                     "cart_item_id": item.id,
@@ -183,7 +185,6 @@ def remove_from_cart(product_id: int, db: Session = Depends(get_db)):
     )
 
     if not cart_item:
-
         raise HTTPException(status_code=404, detail="Product not in cart")
 
     db.delete(cart_item)

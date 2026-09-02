@@ -1,4 +1,3 @@
-from .database import SessionLocal
 from .models import Product
 
 products = [
@@ -53,9 +52,7 @@ products = [
 ]
 
 
-db = SessionLocal()
-
-try:
+def seed_products(db):
     existing_products = db.query(Product).count()
 
     if existing_products == 0:
@@ -64,6 +61,3 @@ try:
         print("Products added successfully!")
     else:
         print("Products already exist.")
-
-finally:
-    db.close()
